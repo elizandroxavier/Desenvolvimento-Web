@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌦️ Previsão do Tempo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      width: 250px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #006994;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #00557a;
+    }
+
+    .resultado {
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 12px;
+      width: 300px;
+      text-align: center;
+    }
+
+    img {
+      width: 80px;
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🌤️ Consulta do Clima</h2>
+
+  <input type="text" id="cidade" placeholder="Digite o nome da cidade..." />
+  <button id="buscar">Buscar</button>
+
+  <div class="resultado" id="resultado">
+    <p>Digite o nome de uma cidade e clique em “Buscar”.</p>
+  </div>
+
+  <script>
+    const btn = document.getElementById("buscar");
+    const saida = document.getElementById("resultado");
+
+    btn.addEventListener("click", async () => {
+      const cidade = document.getElementById("cidade").value.trim();
+      if (!cidade) {
+        saida.innerHTML = "<p>⚠️ Digite o nome de uma cidade!</p>";
+        return;
+      }
+
+      saida.innerHTML = "<p>⏳ Buscando dados do clima...</p>";
+
+      const API_KEY = ""; // substitui pela tua chave
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&units=metric&lang=pt_br`;
+
+      try {
+        const resposta = await fetch(url);
+        if (!resposta.ok) throw new Error("Cidade não encontrada!");
+
+        const dados = await resposta.json();
+
+        const nome = dados.name;
+        const temp = Math.round(dados.main.temp);
+        const descricao = dados.weather[0].description;
+        const icone = dados.weather[0].icon;
+
+        saida.innerHTML = `
+          <h3>${nome}</h3>
+          <img src="https://openweathermap.org/img/wn/${icone}@2x.png" alt="Ícone do clima">
+          <p><strong>${temp}°C</strong></p>
+          <p>${descricao.charAt(0).toUpperCase() + descricao.slice(1)}</p>
+        `;
+      } catch (erro) {
+        saida.innerHTML = `<p>❌ Erro: ${erro.message}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

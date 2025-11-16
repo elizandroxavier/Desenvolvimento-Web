@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: "Rubik", sans-serif;
+}
+html, body {
+    height: 100%;
+    background-color: coral;
+}
+body{
+    background-image: url(../Imagens/Pagani_fundo\ \(2\).jpg);
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* CENTRALIZA HORIZONTAL */
+    align-items: center;      /* CENTRALIZA VERTICAL */
+}
+form{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    backdrop-filter: blur(20px);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.568);
+    border-radius: 20px;
+    gap: 1rem;
+}
+form h1{
+    font-size: 8vh;
+    margin: 0px;
+}
+label{
+    margin-left: 5px;
+}
+input{
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    margin-top: 6px;
+    padding: 5px;
+    padding-left: 10px;
+    width: 300px;
+    color: white;
+    box-shadow: 0px 0px 10px white;
+    background-color: transparent;
+    transition: 0.3s;
+}
+input:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px white;
+    margin-left: 15px;
+}
+input[type="submit"]{
+    background-color: rgb(35, 178, 35);
+    color: white;
+    padding-left: 5px;
+    width: 200px;
+}
+input[type="submit"]:hover{
+    background-color: green;
+}
+input::placeholder{
+    color: rgba(255, 255, 255, 0.9);
+}
+#politicas{
+    display: flex;
+    flex-direction: row;
+}
+#politicas input{
+    margin: 5px;
+    width: 15px;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercício API de Meteorologia</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: #fff;
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #aaa;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #084dbf;
+    }
+
+    #resultado {
+        margin-top: 15px;
+        background: #f7f7f7;
+        padding: 10px;
+        border-radius: 5px;
+        min-height: 50px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>API de Meteorologia</h2>
+    <input type="text" id="cidade" placeholder="Digite o nome da cidade">
+    <button onclick="consultarClima()">Consultar</button>
+    <div id="resultado"></div>
+</div>
+
+<script>
+    async function consultarClima() {
+        const cidade = document.getElementById("cidade").value.trim();
+        const resultadoDiv = document.getElementById("resultado");
+
+        if(!cidade) {
+            alert("Digite o nome de uma cidade!");
+            return;
+        }
+
+        resultadoDiv.textContent = "Buscando clima...";
+
+        try {
+            const apiKey = "SUA_CHAVE_OPENWEATHERMAP"; // Substitua pela sua chave
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${apiKey}&units=metric&lang=pt`;
+
+            const resposta = await fetch(url); // GET por padrão
+            if(!resposta.ok) {
+                throw new Error("Cidade não encontrada ou erro na API");
+            }
+
+            const dados = await resposta.json();
+
+            // Exibir informações do clima
+            resultadoDiv.innerHTML = `
+                <strong>Cidade:</strong> ${dados.name}, ${dados.sys.country}<br>
+                <strong>Temperatura:</strong> ${dados.main.temp} °C<br>
+                <strong>Umidade:</strong> ${dados.main.humidity} %<br>
+                <strong>Condição:</strong> ${dados.weather[0].description}
+            `;
+
+        } catch(error) {
+            resultadoDiv.textContent = "Ocorreu um erro: " + error.message;
+            console.error(error);
+        }
+    }
+
+    /* INSTRUÇÕES PARA OBTER CHAVE OPENWEATHERMAP:
+        1. Acesse https://home.openweathermap.org/users/sign_up
+        2. Crie uma conta gratuita.
+        3. Vá em API Keys e copie a chave.
+        4. Substitua "SUA_CHAVE_OPENWEATHERMAP" no código.
+    */
+</script>
+</body>
+</html>
