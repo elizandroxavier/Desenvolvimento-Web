@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercício API de IA</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: #fff;
+        width: 100%;
+        max-width: 500px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 80px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #aaa;
+        resize: none;
+        margin-bottom: 10px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: #0d6efd;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #084dbf;
+    }
+
+    #resposta {
+        margin-top: 15px;
+        background: #f7f7f7;
+        padding: 10px;
+        border-radius: 5px;
+        min-height: 50px;
+        white-space: pre-wrap; /* mantém quebras de linha */
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Exercício API de IA</h2>
+    <textarea id="pergunta" placeholder="Digite sua pergunta..."></textarea>
+    <button onclick="enviarPergunta()">Enviar</button>
+    <div id="resposta"></div>
+</div>
+
+<script>
+    async function enviarPergunta() {
+        const pergunta = document.getElementById("pergunta").value.trim();
+        const respostaDiv = document.getElementById("resposta");
+
+        if(!pergunta) {
+            alert("Digite algo antes de enviar!");
+            return;
+        }
+
+        // Mostra mensagem de carregamento
+        respostaDiv.textContent = "Aguardando resposta...";
+
+        try {
+            // Exemplo com OpenAI API (necessário ter chave)
+            const apiKey = "SUA_CHAVE_AQUI"; // Substitua pela sua chave da OpenAI
+            const url = "https://api.openai.com/v1/completions";
+
+            const data = {
+                model: "text-davinci-003",
+                prompt: pergunta,
+                max_tokens: 150
+            };
+
+            const resposta = await fetch(url, {
+                method: "POST",             // método POST
+                headers: {                  // cabeçalhos da requisição
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`
+                },
+                body: JSON.stringify(data)  // corpo da requisição em JSON
+            });
+
+            if(!resposta.ok) {
+                throw new Error(`Erro na API: ${resposta.status}`);
+            }
+
+            const resultado = await resposta.json();
+            // A resposta de texto está em resultado.choices[0].text
+            respostaDiv.textContent = resultado.choices[0].text;
+
+        } catch(error) {
+            respostaDiv.textContent = "Ocorreu um erro: " + error.message;
+            console.error(error);
+        }
+    }
+
+    /* INSTRUÇÕES PARA OBTER CHAVE DA OPENAI:
+        1. Acesse https://platform.openai.com/
+        2. Crie uma conta gratuita.
+        3. Vá em API Keys e gere uma nova chave.
+        4. Substitua "SUA_CHAVE_AQUI" no código.
+    */
+</script>
+</body>
+</html>

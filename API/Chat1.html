@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumindo API</title>
+</head>
+<body>
+    <h1>Digite uma pergunta...</h1>
+    <input id="pergunta" type="text" placeholder="Faça a sua pergunta">
+    <button id="busca">Enviar</button>
+    <p id="resposta"></p>
+
+    <script>
+        import{GoogleGenAI} from "@google/genai"
+        // Código cliente: envia o texto para o servidor e atualiza a página com a resposta
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('pergunta');
+            const button = document.getElementById('busca');
+            const respostaEl = document.getElementById('resposta');
+
+            button.addEventListener('click', async () => {
+                const prompt = input.value.trim();
+                if (!prompt) {
+                    respostaEl.textContent = 'Digite uma pergunta antes de enviar.';
+                    return;
+                }
+
+                button.disabled = true;
+                respostaEl.textContent = 'Aguardando resposta...';
+
+                try {
+                    const res = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt })
+                    });
+
+                    if (!res.ok) throw new Error('Erro na requisição: ' + res.status);
+                    const data = await res.json();
+
+                    // Exibe a propriedade `reply` retornada pelo servidor
+                    respostaEl.textContent = data.reply ?? JSON.stringify(data);
+                } catch (err) {
+                    respostaEl.textContent = 'Erro: ' + err.message;
+                } finally {
+                    button.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
