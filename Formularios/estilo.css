@@ -1,93 +1,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
+/* Reset básico */
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     color: white;
     font-family: "Rubik", sans-serif;
 }
+
 html, body {
     height: 100%;
-    background-color: coral;
 }
+
+/* Fundo full-screen sempre centralizado e cobrindo toda a tela */
 body{
-    background-image: url(../Imagens/Pagani_fundo\ \(2\).jpg);
+    background-image: url('../Imagens/Pagani_fundo (2).jpg');
     background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     min-height: 100vh;
     display: flex;
-    justify-content: center; /* CENTRALIZA HORIZONTAL */
-    align-items: center;      /* CENTRALIZA VERTICAL */
+    justify-content: center; /* centraliza horizontal */
+    align-items: center;      /* centraliza vertical */
 }
+
+/* Formulário responsivo: ocupa largura relativa, com limite máximo */
 form{
     display: flex;
     flex-direction: column;
     padding: 32px;
-    width: 90%;           /* ocupa 90% da largura do container (body) em telas pequenas */
-    max-width: 420px;     /* não fica maior que 420px em telas grandes */
-    box-sizing: border-box;
-    align-items: center;
+    width: 90%;
+    max-width: 420px;
+    align-items: stretch;
     justify-content: center;
-    background: transparent;
-    backdrop-filter: blur(20px);
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.568);
-    border-radius: 20px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    border-radius: 16px;
     gap: 1rem;
 }
+
 form h1{
-    font-size: 8vh;
-    margin: 0px;
+    font-size: 2.2rem;
+    margin: 0;
+    text-align: center;
 }
+
 hr{
-    width: 100%; 
-    margin: 0px;
+    width: 100%;
 }
+
 label{
     margin-left: 5px;
 }
-input{
+
+/* Inputs fluidos que acompanham a largura do form */
+input, textarea, select{
     border: none;
     outline: none;
-    border-radius: 15px;
+    border-radius: 12px;
     margin-top: 6px;
-    padding: 5px;
-    padding-left: 10px;
-    width: 100px;
+    padding: 10px 12px;
+    width: 100%;
     color: white;
-    box-shadow: 0px 0px 10px white;
-    background-color: transparent;
-    transition: 0.3s;
+    box-shadow: 0 0 8px rgba(255,255,255,0.08) inset;
+    background-color: rgba(255,255,255,0.05);
+    transition: box-shadow 0.18s, transform 0.18s;
 }
-input:hover{
-    transform: scale(1.06);
-    box-shadow: 0px 0px 20px white;
-    margin-left: 15px;
+
+input:hover, textarea:hover, select:hover{
+    box-shadow: 0 0 18px rgba(255,255,255,0.12) inset;
+    transform: translateY(-2px);
 }
+
 input[type="submit"]{
     background-color: rgb(35, 178, 35);
     color: white;
-    padding: 10px 18px;
+    padding: 10px 12px;
     width: 100%;
-    max-width: 260px;
-    border-radius: 10px;
     cursor: pointer;
 }
+
 input[type="submit"]:hover{
-    background-color: green;
+    background-color: rgb(24,140,24);
 }
+
 input::placeholder{
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.8);
 }
+
 #politicas{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }
+
 #politicas input{
-    margin: 5px;
-    width: 15px;
+    margin: 0;
+    width: 18px;
 }
+
 a{
     text-decoration: none;
+    color: inherit;
 }
+
 a:hover{
     text-decoration: underline;
 }
@@ -98,11 +117,9 @@ a:hover{
     body{
         background-image: url(Imagens/download.jpg);
         background-size: cover;
-        background-position: center;
     }
     form{
-        width: 94%;
-        padding: 20px;
+        width: 30vh;
     }
 }
 
@@ -112,12 +129,9 @@ a:hover{
         background-image: url(Imagens/download\ \(3\).jpg);
         background-size: cover;
         background-repeat: no-repeat;
-        background-position: center;
     }
     form{
-        width: 70%;
-        max-width: 520px;
-        padding: 28px;
+        width: 30vh;
     }
 }
 
@@ -126,11 +140,9 @@ a:hover{
 @media screen and (min-width: 992px) and (max-width: 1200px){
     body{
         background-image: url(Imagens/Porsche\ 911\ GT3\ in\ Stunning\ 4K\ Detail\ -\ backiee.jpg);
-        background-position: center;
     }
     form{
-        width: 50%;
-        max-width: 480px;
+        width: 30vh;
     }
 }
 
