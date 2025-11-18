@@ -120,9 +120,12 @@ a:hover{
 @media (max-width:576px){
     body{
         background-image: url(Imagens/download.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
     #from{
-        width: 35%;
+        width: 80vh;
     }
     .pConta{
         font-size: 0.7rem;
@@ -138,12 +141,15 @@ a:hover{
     }
 }
 
-@media (max-width: 768px){
+@media (min-width: 576px) and (max-width: 768px){
     body{
         background-image: url(Imagens/Porsche\ 911\ GT3\ in\ Stunning\ 4K\ Detail\ -\ backiee.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
     }
     #from{
-        width: 55%;
+        width: 85%;
     }
     .pConta{
         font-size: 0.7rem;
