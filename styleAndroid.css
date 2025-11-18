@@ -1,0 +1,171 @@
+@media(max-width:448px){
+    #icone_Kanuka{
+        width: 100px;
+        height: 100px;
+        top: -1%;
+        left: 2%;
+    }
+
+    #div_perfilUser{
+        left: 32%;
+        height: 45px;
+        width: 180px;
+        font-size: 0.7rem;
+    }
+    #imgPerfilUser{
+        width: 35px;
+        height: 35px;
+    }
+    #nomeUser{
+        font-size: 0.7rem;
+    }
+
+    #div_def{
+        left: 85%;
+    }
+
+    #navegacoes{
+        display: none;
+    }
+
+    #div_NavMobile{
+        display: flex;
+    }
+    
+    
+    .headeSections h1{
+        font-size: 18px;
+    }
+
+    
+    .card_programa{
+        width: 300px;
+    }
+
+    .scrolls{
+        width: 200px;
+      
+        margin-left: 50%;
+    }
+
+    #processoPrograma{
+        width: 40px;
+        height: 40px;
+    }
+
+    #infoDisponivel{
+        width: 95%;
+    }
+    #infoDisponivel h2{
+        font-size: 14px;
+    }
+
+    #infoDisponivel p{
+        font-size: 0.7rem;
+    }
+
+    #mainJogos{
+        width: 100%;
+        margin-top: 23%;
+    }
+
+    .headerJogos h2{
+        font-size: 18px;
+
+    }
+
+    #div_espacoJogos{
+        width: 98%;
+    
+    }
+
+    .cards_Jogos{
+        width: 94%;
+    }
+
+    .infoJogosAPi{
+        font-size: 0.8rem;
+    }
+
+    .btnActivosPlayers{
+        font-size: 0.7rem;
+    }
+
+    .btnActivosPlayers div{
+        width: 10px;
+        height: 10px;
+    }
+
+    .btnActivosPerson{
+        font-size: 0.7rem;
+    }
+
+    .btnActivosPerson img{
+        width: 14px;
+        height: 14px;
+    }
+
+    #mainRanking{
+        margin-top: 25%;
+        margin-left: -10%;
+    }
+
+    #espaco_Ranking{
+        width: 96%;
+    }
+
+    .thNumero{
+        width: 10%;
+        font-size: 0.8rem;
+    }
+    .tdNumero{
+        font-size: 0.7rem;
+    }
+
+    .thNome{
+        width: 60%;
+        font-size: 0.8rem;
+    }
+
+    .tdNomes{
+        font-size: 0.8rem;
+    }
+
+    .thIdade{
+        width: 13%;
+        font-size: 0.8rem;
+    }
+
+    .tdIdade{
+        font-size: 0.7rem;
+    }
+
+    .thPontos{
+        width: 20%;
+        font-size: 0.8rem;
+    }
+    .tdPontos{
+        font-size: 0.7rem;
+    }
+
+    .cardJogos{
+        width: 80%;
+    }
+    .btns_activos{
+        font-size: 0.7rem;
+    }
+
+
+    .infoProgramas{
+        font-size: 0.7rem;
+    }
+
+    #container{
+        z-index: 100000;
+    }
+
+    #menuDef{
+        width: 85%;
+       
+    }
+}
