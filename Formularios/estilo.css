@@ -22,6 +22,7 @@ form{
     display: flex;
     flex-direction: column;
     padding: 40px;
+    width: 5ovh;
     align-items: center;
     justify-content: center;
     background: transparent;
@@ -32,6 +33,10 @@ form{
 }
 form h1{
     font-size: 8vh;
+    margin: 0px;
+}
+hr{
+    width: 100%; 
     margin: 0px;
 }
 label{
@@ -81,3 +86,40 @@ a{
 a:hover{
     text-decoration: underline;
 }
+/*
+    telefone: de 600px até 768px
+    Tablet: 768px até 992px
+    Desktop: 992px até 1200px
+    Desktop: acima de 1200px
+*/
+
+/* Smartphones pequenos:480px */
+/* Smartphones médios */
+@media screen and (max-width: 576px){
+    body{
+        background-image: url(Imagens/download.jpg);
+        background-size: cover;
+    }
+    form{
+        width: 50vh;
+    }
+}
+
+/* Tablets */
+@media screen and (min-width: 577px) and (max-width: 992px){
+    body{
+        background-image: url(Imagens/download\ \(3\).jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
+
+/* Tablets grandes / laptops menores: 768px até 992*/
+/* Laptops médios */
+@media screen and (min-width: 992px) and (max-width: 1200px){
+    body{
+        background-image: url(Imagens/Porsche\ 911\ GT3\ in\ Stunning\ 4K\ Detail\ -\ backiee.jpg);
+    }
+}
+
+
