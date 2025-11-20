@@ -1,0 +1,170 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+:root{
+    --fusco: rgba(104, 102, 102, 0.92);
+}
+a{
+    text-decoration: none;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+header{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    width: 100%;
+    height: 8vw;
+}
+header #logo-canteiro{
+    width: 10%;
+}
+header #logo-canteiro a img{
+    width: 90%;
+}
+header #links-principais{
+    color: white;
+    margin-top: 5.2%;
+    padding: 6px 12px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px; 
+}
+header #links-principais a{
+    font-size: 1.8rem;
+    color: inherit;
+    text-decoration: none;
+    display: inline-block; /* garante que margin horizontal funcione se necessário */
+    padding: 6px 8px;
+}
+header #links-principais a:hover{
+   text-decoration: underline;
+}
+header #navegaçao{
+    align-items: center;
+    padding: 10px 10px 20px 10px;
+    width: 30%;
+    gap: 10px;
+    display: inline;
+}
+header #navegaçao nav{
+   display: inline-block;
+   padding: 6px 8px;
+}
+header #navegaçao nav a{
+    text-decoration: none;
+    color: white;
+    gap: 10px; 
+}
+header #navegaçao #pesquisa{
+    padding: 0px 0px 10px 5px;
+    position: absolute;
+    top: 11%;
+    display: flex;
+    justify-content: center;
+    
+}
+header #navegaçao #pesquisa input{
+    height: 1.5vw;
+    width: 48vh;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    margin-top: 13px;
+    padding-left: 5px;
+    padding: 3px 3px 3px 5px;
+}
+header #navegaçao #pesquisa input::placeholder{
+    font-size: 1rem;
+}
+header #navegaçao #pesquisa a img{
+    margin: 10px 0px 0px 3px;
+    margin-top: 10px;
+    width: 130%;
+}
+main{
+    background-color: rgb(252, 246, 238);
+}
+main .galeria{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 12px;
+}
+/* Container interno que agrupa as fotos */
+main .galeria .fotos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 10%;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 15px;
+}
+main .galeria .fotos:hover{
+    transform: scale(1.1);
+}
+main .galeria .fotos img{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Cada filho direto dentro de #fotos vira um card responsivo */
+main .galeria .fotos > *{
+    flex: 0 1 calc(25% - 16px); /* 4 por linha, responsivo */
+    max-width: 240px;
+    min-width: 140px;
+}
+main .galeria .fotos .conteudo-roupas .preço-roupas{
+    background-color: rgba(172, 255, 47, 0.516);
+    border-radius: 18px;
+    padding-left: 4px;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+main .galeria .fotos .conteudo-roupas .preço-roupas:hover{
+    background-color: rgba(172, 255, 47, 0.879);
+    color: rgb(0, 0, 0);
+}
+main .galeria .fotos .conteudo-roupas .desconto-roupas{
+    background-color: rgba(255, 0, 0, 0.288);
+    border-radius: 18px;
+    padding-left: 4px;
+    color: var(--fusco);
+    font-size: 1.3em;
+}
+main .galeria .fotos .conteudo-roupas .descrição-roupas{
+    
+    color: var(--fusco);
+}
+main .galeria .fotos .conteudo-roupas .cores-roupas{
+    color: var(--fusco);
+}
+/* Em telas pequenas, mostrar 2 por linha */
+@media (max-width: 600px){
+    main #galeria #fotos > *{
+        flex: 0 1 calc(50% - 12px);
+        max-width: none;
+    }
+}
+
+@media (min-width: 1400px){
+    main #galeria #fotos > *{
+        flex: 0 1 calc(20% - 16px);
+    }
+}

@@ -28,13 +28,24 @@
         </div>
         
         <div id="politicas">
-            <p><input type="checkbox" name="" id="">Termos e condições</p>
-            <p><input type="checkbox" name="" id="">Política de privacidade</p>
+            <p><input type="checkbox" name="" id="">Termos e política de privacidade</p>
         </div>
         <div>
-            <input type="submit" value="Cadastrar">
+            <input type="submit" value="Cadastrar" onclick="verificar()">
         </div>
         <p>Já tem conta?    <a href="login.html">Faça login</a></p>
     </form>
+    <script>
+        function verificar(){
+            let valor1 = document.getElementById("senha1").value
+            let valor2 = document.getElementById("senha2").value
+
+            if(valor1 === valor2){
+                window.alert("Senhas iguais")
+            }else{
+                window.alert("Senhas diferentes, tente novamente!")
+            }
+        }
+    </script>
 </body>
 </html>
