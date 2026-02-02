@@ -1,0 +1,63 @@
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+}
+header{
+    background-color: #111;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+header #foto-perfil{
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #444;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: .5s;
+}
+header #foto-perfil:hover{
+    transform: scale(1.05);
+}
+main .secao{
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+    transition: .5s;
+}
+main .secao:hover{
+    transform: scale(1.07);
+}
+main .titulo{
+    border-left: 5px solid #111;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+main .cartao{
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+footer{
+    background-color: #111;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 22px;
+    }
+    #foto-perfil {
+        width: 110px;
+        height: 110px;
+    }
+}
