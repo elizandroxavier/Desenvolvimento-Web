@@ -1,0 +1,152 @@
+# Frontend - Agregador de Notícias
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | NewsHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-page">
+  <div class="auth-card">
+    <h1>NewsHub</h1>
+    <p>Entrar na sua conta</p>
+
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Palavra-passe" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <p class="auth-link">
+      Não tem conta? <a href="register.html">Criar conta</a>
+    </p>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
+## 5. settings.html
+
+```html
+
+```
+
+## 6. styles.css
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #222;
+}
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+input, button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  border-radius: 8px;
+}
+
+button {
+  background: #1a73e8;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.main-header {
+  background: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.container {
+  padding: 2rem;
+}
+```
+
+## 7. app.js
+
+```javascript
+function saveUser(user) {
+  localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("loggedIn", "true");
+}
+
+function logout() {
+  localStorage.removeItem("loggedIn");
+  window.location.href = "index.html";
+}
+
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    saveUser({ email, password });
+    window.location.href = "dashboard.html";
+  });
+}
+
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("registerName").value;
+    const email = document.getElementById("registerEmail").value;
+    const password = document.getElementById("registerPassword").value;
+
+    saveUser({ name, email, password });
+    window.location.href = "dashboard.html";
+  });
+}
+
+const news = [
+  { id: 1, title: "Nova tecnologia em IA", category: "Tecnologia" },
+  { id: 2, title: "Final do campeonato", category: "Desporto" },
+  { id: 3, title: "Avanço na medicina", category: "Saúde" }
+];
+
+const newsContainer = document.getElementById("newsContainer");
+if (newsContainer) {
+  news.forEach(item => {
+    const div = document.createElement("div");
+    div.innerHTML = `<h3>${item.title}</h3><p>${item.category}</p>`;
+    newsContainer.appendChild(div);
+  });
+}
+```

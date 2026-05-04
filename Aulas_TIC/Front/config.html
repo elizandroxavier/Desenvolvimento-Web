@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Definições | NewsHub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="main-header">
+    <h2>Preferências</h2>
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="favorites.html">Favoritos</a>
+      <button onclick="logout()">Logout</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <form id="preferencesForm">
+      <label><input type="checkbox" value="Tecnologia"> Tecnologia</label>
+      <label><input type="checkbox" value="Desporto"> Desporto</label>
+      <label><input type="checkbox" value="Saúde"> Saúde</label>
+      <label><input type="checkbox" value="Ciência"> Ciência</label>
+      <label><input type="checkbox" value="Negócios"> Negócios</label>
+      <label><input type="checkbox" value="Entretenimento"> Entretenimento</label>
+      <button type="submit">Guardar</button>
+    </form>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

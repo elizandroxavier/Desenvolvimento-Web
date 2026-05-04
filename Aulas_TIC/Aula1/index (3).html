@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chuck Norris Facts</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#0d0d0d;
+  color:#f0ece3;
+  font-family:Barlow,sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.card{
+  width:100%;
+  max-width:750px;
+  background:#181818;
+  border:1px solid #2a2a2a;
+  padding:25px;
+  border-radius:10px;
+  position:relative;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:linear-gradient(#c0392b,#f39c12);
+}
+
+h1{
+  font-family:"Bebas Neue";
+  font-size:3rem;
+  margin-bottom:10px;
+}
+
+.badge{
+  display:inline-block;
+  background:#f39c12;
+  color:#000;
+  padding:5px 10px;
+  font-size:0.8rem;
+  border-radius:4px;
+  margin-bottom:15px;
+}
+
+.joke{
+  font-size:1.2rem;
+  line-height:1.6;
+  min-height:80px;
+  margin-bottom:15px;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+button{
+  flex:1;
+  padding:12px;
+  border:none;
+  cursor:pointer;
+  font-family:"Bebas Neue";
+  letter-spacing:1px;
+  font-size:1rem;
+}
+
+.random{
+  background:#c0392b;
+  color:white;
+}
+
+.categoryBtn{
+  background:#f39c12;
+  color:#000;
+}
+
+select{
+  flex:1;
+  padding:12px;
+  background:#222;
+  color:#fff;
+  border:1px solid #333;
+}
+
+.loading{
+  display:none;
+  color:#f39c12;
+  margin-top:10px;
+}
+
+.error{
+  color:#ff4d4d;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h1>Chuck Norris Facts</h1>
+
+  <div id="categoryBadge" class="badge">Categoria: -</div>
+
+  <div id="joke" class="joke">
+    Carrega num botão para começar 😎
+  </div>
+
+  <div id="loading" class="loading">A carregar...</div>
+  <div id="error" class="error"></div>
+
+  <div class="buttons">
+
+    <button class="random" onclick="getRandomJoke()">
+      PIADA ALEATÓRIA
+    </button>
+
+    <select id="categorySelect">
+      <option value="animal">Animais</option>
+      <option value="career">Carreira</option>
+      <option value="celebrity">Celebridades</option>
+      <option value="dev">Programação</option>
+      <option value="movie">Cinema</option>
+      <option value="music">Música</option>
+      <option value="sport">Desporto</option>
+      <option value="science">Ciência</option>
+      <option value="history">História</option>
+    </select>
+
+    <button class="categoryBtn" onclick="getCategoryJoke()">
+      POR CATEGORIA
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+const jokeEl = document.getElementById("joke");
+const loadingEl = document.getElementById("loading");
+const errorEl = document.getElementById("error");
+const badgeEl = document.getElementById("categoryBadge");
+const selectEl = document.getElementById("categorySelect");
+
+let busy = false;
+
+// API oficial
+const API = "https://api.chucknorris.io/jokes/random";
+
+// ============================
+// PIADA ALEATÓRIA
+// ============================
+async function getRandomJoke(){
+  if(busy) return;
+  busy = true;
+
+  resetUI();
+
+  try{
+    const res = await fetch(API);
+    const data = await res.json();
+
+    showCategory(data.categories[0] || "aleatória");
+
+    const text = await translate(data.value);
+    jokeEl.textContent = text;
+
+  }catch{
+    error("Erro ao carregar piada.");
+  }finally{
+    loading(false);
+    busy = false;
+  }
+}
+
+// ============================
+// PIADA POR CATEGORIA
+// ============================
+async function getCategoryJoke(){
+  if(busy) return;
+  busy = true;
+
+  resetUI();
+
+  const cat = selectEl.value;
+  const url = `${API}?category=${cat}`;
+
+  try{
+    const res = await fetch(url);
+    const data = await res.json();
+
+    showCategory(cat);
+
+    const text = await translate(data.value);
+    jokeEl.textContent = text;
+
+  }catch{
+    error("Erro ao carregar categoria.");
+  }finally{
+    loading(false);
+    busy = false;
+  }
+}
+
+// ============================
+// TRADUÇÃO (GRATUITA)
+// ============================
+async function translate(text){
+  try{
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|pt`
+    );
+
+    const data = await res.json();
+    return data.responseData.translatedText || text;
+
+  }catch{
+    return text;
+  }
+}
+
+// ============================
+// UI HELPERS
+// ============================
+function showCategory(cat){
+  const map = {
+    animal:"Animais",
+    career:"Carreira",
+    celebrity:"Celebridades",
+    dev:"Programação",
+    movie:"Cinema",
+    music:"Música",
+    sport:"Desporto",
+    science:"Ciência",
+    history:"História",
+    "aleatória":"Aleatória"
+  };
+
+  badgeEl.textContent = "Categoria: " + (map[cat] || cat);
+}
+
+function resetUI(){
+  jokeEl.textContent = "";
+  errorEl.textContent = "";
+  loading(true);
+}
+
+function loading(state){
+  loadingEl.style.display = state ? "block" : "none";
+}
+
+function error(msg){
+  errorEl.textContent = msg;
+}
+
+</script>
+
+</body>
+</html>

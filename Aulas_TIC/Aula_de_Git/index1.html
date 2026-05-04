@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chuck Norris Facts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:   #c0392b;
+      --red2:  #e74c3c;
+      --gold:  #f39c12;
+      --dark:  #0d0d0d;
+      --card:  #181818;
+      --text:  #f0ece3;
+      --muted: #888;
+      --border:#2a2a2a;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--dark);
+      color: var(--text);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: .5;
+    }
+
+    .page {
+      position: relative; z-index: 1;
+      min-height: 100dvh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 2.5rem 1.25rem 3rem;
+      gap: 2rem;
+    }
+
+    header { text-align: center; }
+
+    .logo-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--red); color: #fff;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .82rem; letter-spacing: .15em;
+      padding: .32rem .85rem; border-radius: 2px; margin-bottom: 1rem;
+      box-shadow: 0 0 24px rgba(192,57,43,.5);
+    }
+    .logo-badge svg { width: 1rem; height: 1rem; fill: currentColor; }
+
+    h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.2rem, 10vw, 6rem);
+      line-height: .9; letter-spacing: .02em;
+    }
+    h1 span { display: block; color: var(--red); text-shadow: 0 0 40px rgba(231,76,60,.4); }
+
+    .tagline {
+      margin-top: .75rem; font-size: .9rem;
+      color: var(--muted); letter-spacing: .05em; text-transform: uppercase;
+    }
+
+    .card-wrapper { width: 100%; max-width: 700px; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2.25rem 2.25rem 1.75rem;
+      min-height: 190px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,.6), 0 16px 48px rgba(0,0,0,.5),
+                  inset 0 1px 0 rgba(255,255,255,.04);
+      transition: box-shadow .3s;
+    }
+    .card:hover {
+      box-shadow: 0 2px 4px rgba(0,0,0,.6), 0 22px 60px rgba(0,0,0,.65),
+                  inset 0 1px 0 rgba(255,255,255,.06);
+    }
+    .card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--red), var(--gold));
+      border-radius: 6px 0 0 6px;
+    }
+    .card::after {
+      content: '\201C';
+      font-family: 'Bebas Neue', sans-serif; font-size: 10rem; line-height: 1;
+      color: rgba(255,255,255,.03);
+      position: absolute; top: -1.5rem; right: 1.5rem;
+      pointer-events: none; user-select: none;
+    }
+
+    .category-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .78rem; letter-spacing: .14em;
+      color: var(--gold);
+      border: 1px solid rgba(243,156,18,.35);
+      border-radius: 2px;
+      padding: .18rem .65rem;
+      margin-bottom: 1rem;
+      background: rgba(243,156,18,.07);
+    }
+    .category-badge.hidden { display: none; }
+    .category-badge svg { width: .85rem; height: .85rem; fill: var(--gold); }
+
+    #joke-text {
+      font-size: clamp(1rem, 2.4vw, 1.25rem);
+      line-height: 1.7;
+      color: var(--text);
+      position: relative; z-index: 1;
+    }
+    #joke-text.fade-in { animation: fadeUp .35s ease forwards; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .dots { display: none; gap: .5rem; align-items: center; padding: 2rem 0; }
+    .dots.visible { display: flex; }
+    .dots span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red);
+      animation: bounce .9s ease-in-out infinite;
+    }
+    .dots span:nth-child(2) { animation-delay: .15s; background: var(--gold); }
+    .dots span:nth-child(3) { animation-delay: .3s; }
+    @keyframes bounce {
+      0%,80%,100% { transform: scale(.6); opacity: .5; }
+      40%         { transform: scale(1.1); opacity: 1; }
+    }
+
+    .controls { width: 100%; max-width: 700px; display: flex; flex-direction: column; gap: 1rem; }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .78rem; letter-spacing: .18em;
+      color: var(--muted); text-transform: uppercase;
+      margin-bottom: .35rem;
+    }
+
+    .btn-random {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem; letter-spacing: .12em;
+      color: #fff; background: var(--red);
+      border: none; border-radius: 4px;
+      padding: .95rem 0; width: 100%;
+      cursor: pointer; position: relative; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(192,57,43,.5);
+      transition: transform .15s, box-shadow .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-random::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .btn-random:hover  { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(192,57,43,.65); }
+    .btn-random:active { transform: translateY(0); box-shadow: 0 2px 12px rgba(192,57,43,.4); }
+
+    .divider {
+      display: flex; align-items: center; gap: .75rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .75rem; letter-spacing: .18em; color: #444;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .cat-row { display: flex; gap: .65rem; align-items: stretch; }
+
+    .cat-select-wrap { position: relative; flex: 1; }
+    .cat-select-wrap svg {
+      position: absolute; right: .85rem; top: 50%;
+      transform: translateY(-50%);
+      width: 1rem; height: 1rem; fill: var(--muted);
+      pointer-events: none;
+    }
+
+    select#category {
+      width: 100%;
+      font-family: 'Barlow', sans-serif; font-size: .95rem;
+      color: var(--text); background: var(--card);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: .9rem 2.5rem .9rem 1rem;
+      appearance: none; -webkit-appearance: none;
+      cursor: pointer; transition: border-color .2s; outline: none;
+    }
+    select#category:focus { border-color: var(--gold); }
+    select#category option { background: #1e1e1e; }
+
+    .btn-category {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: .1em;
+      color: var(--dark); background: var(--gold);
+      border: none; border-radius: 4px;
+      padding: .9rem 1.5rem;
+      cursor: pointer; white-space: nowrap;
+      transition: transform .15s, box-shadow .15s, filter .15s;
+      box-shadow: 0 4px 20px rgba(243,156,18,.35);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-category:hover  { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 8px 28px rgba(243,156,18,.5); }
+    .btn-category:active { transform: translateY(0); }
+
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      transform: scale(0);
+      animation: rippleAnim .55s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+    .footer-row {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 700px; flex-wrap: wrap; gap: .75rem;
+    }
+
+    .counter {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: .88rem; letter-spacing: .1em;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+    }
+    .counter-num { color: var(--gold); font-size: 1rem; }
+    .counter-num.pop { animation: pop .28s ease; }
+    @keyframes pop {
+      0%  { transform: scale(1); }
+      50% { transform: scale(1.5); }
+      100%{ transform: scale(1); }
+    }
+
+    footer { font-size: .73rem; color: #444; letter-spacing: .06em; text-transform: uppercase; }
+    footer a { color: #555; text-decoration: none; }
+    footer a:hover { color: var(--muted); }
+
+    .page > * { opacity: 0; animation: enter .6s ease forwards; }
+    header        { animation-delay: .05s; }
+    .card-wrapper { animation-delay: .2s; }
+    .controls     { animation-delay: .35s; }
+    .footer-row   { animation-delay: .45s; }
+    footer        { animation-delay: .55s; }
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .card { padding: 1.75rem 1.4rem 1.5rem; }
+      .cat-row { flex-direction: column; }
+      .btn-category { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo-badge">
+      <svg viewBox="0 0 24 24"><path d="M17 8C17 7.45 16.55 7 16 7s-1 .45-1 1v1h-1V6c0-.55-.45-1-1-1s-1 .45-1 1v2h-1V7c0-.55-.45-1-1-1s-1 .45-1 1v3H8V9c0-.55-.45-1-1-1s-1 .45-1 1v5c0 3.31 2.69 6 6 6s6-2.69 6-6V8z"/></svg>
+      Facts &amp; Legends
+    </div>
+    <h1>Chuck<br/><span>Norris</span></h1>
+    <p class="tagline">Piadas brutais direto da fonte</p>
+  </header>
+
+  <div class="card-wrapper">
+    <div class="card">
+      <div class="category-badge hidden" id="cat-badge">
+        <svg viewBox="0 0 24 24"><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z"/></svg>
+        <span id="cat-badge-text"></span>
+      </div>
+      <div class="dots" id="dots">
+        <span></span><span></span><span></span>
+      </div>
+      <p id="joke-text">Carrega num botão abaixo para receber uma piada de Chuck Norris.</p>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div>
+      <p class="section-label">Piada aleatória</p>
+      <button class="btn-random" id="btn-random">Gerar Piada Aleatória</button>
+    </div>
+
+    <div class="divider">ou escolhe uma categoria</div>
+
+    <div>
+      <p class="section-label">Por categoria</p>
+      <div class="cat-row">
+        <div class="cat-select-wrap">
+          <select id="category" aria-label="Escolher categoria"></select>
+          <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+        </div>
+        <button class="btn-category" id="btn-category">Buscar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-row">
+    <div class="counter">
+      Piadas lidas: <span class="counter-num" id="count">0</span>
+    </div>
+    <footer>Piadas sobre Chuck Norris &mdash; chucknorris.io</footer>
+  </div>
+
+</div>
+<script>
+// ── Jokes database ────────────────────────────────────────────────────────
+const JOKES = {
+  "Animais": [
+    "Chuck Norris can take a knife to a gunfight and win.",
+    "When Chuck Norris enters a room, he doesn't turn the lights on. He turns the dark off.",
+    "Chuck Norris counted to infinity — twice.",
+    "Chuck Norris can divide by zero.",
+    "Death once had a near-Chuck-Norris experience.",
+    "Chuck Norris doesn't wear a watch. He decides what time it is.",
+    "Chuck Norris made a Happy Meal cry.",
+    "Chuck Norris can hear sign language.",
+    "Chuck Norris once kicked a horse in the chin. Its descendants are known today as giraffes.",
+    "Sharks have a week dedicated to Chuck Norris.",
+    "Chuck Norris can slam a revolving door.",
+    "When Chuck Norris does a pushup, he isn't lifting himself up — he's pushing the Earth down.",
+    "Chuck Norris once won a staring contest with his own reflection.",
+    "The dinosaurs looked at Chuck Norris the wrong way once. You know what happened next.",
+    "Chuck Norris doesn't breathe — he holds air hostage.",
+  ],
+  "Desporto": [
+    "Chuck Norris finished a marathon in under 5 minutes — it was a 42km marathon.",
+    "Chuck Norris once participated in the Tour de France. He won using a stationary bike.",
+    "Chuck Norris bowled a perfect 300 — using a golf ball.",
+    "Chuck Norris can swim through land.",
+    "In the 1992 Olympics, Chuck Norris lost a race. The runner who beat him is still apologizing.",
+    "Chuck Norris won the World Cup single-handedly. Literally — he only used one hand.",
+    "When Chuck Norris throws a ball, the ball doesn't stop. Physics stops.",
+    "Chuck Norris can score a goal from the stands.",
+    "The only time Chuck Norris was defeated in a sport was when he let the scoreboard win out of pity.",
+    "Chuck Norris once played tennis against a wall. The wall lost.",
+  ],
+  "Ciência": [
+    "Chuck Norris can delete the Recycle Bin.",
+    "Chuck Norris knows the last digit of pi.",
+    "When Chuck Norris enters data into a computer, the computer is grateful.",
+    "Chuck Norris can compile syntax errors.",
+    "Atoms make up everything — except Chuck Norris. Chuck Norris makes up atoms.",
+    "Chuck Norris discovered a new periodic element: Chucknorrisium. It's undefeatable.",
+    "Chuck Norris can touch the untouchable and break the unbreakable.",
+    "Einstein's theory of relativity was originally titled 'Chuck Norris is always right.'",
+    "Chuck Norris can solve a Rubik's cube in one move. He simply stares at it until it corrects itself.",
+    "Chuck Norris once stared at the Sun for an hour. The Sun blinked first.",
+  ],
+  "Cinema": [
+    "When Chuck Norris was asked to star in a horror film, the film chickened out.",
+    "Chuck Norris once cried while watching a movie. The movie immediately apologized.",
+    "The Terminator was based on Chuck Norris — the studio just had to make the character more human.",
+    "Chuck Norris played Russian Roulette with a fully loaded gun and won.",
+    "Hollywood tried to cast Chuck Norris as a villain. The villain refused.",
+    "Chuck Norris's films have a 100% survival rate — for Chuck Norris.",
+    "When Chuck Norris appears on screen, the credits roll out of respect.",
+    "Bruce Lee studied Chuck Norris. Chuck Norris studied no one — everyone studied him.",
+    "Chuck Norris doesn't do stunt doubles. Stunt doubles do Chuck Norris.",
+    "In every movie Chuck Norris appears in, the script originally ends with his character losing. The script always changes its mind.",
+  ],
+  "História": [
+    "Chuck Norris once punched a clock. Time has been afraid to move forward ever since.",
+    "The Great Wall of China was built to keep Chuck Norris out. It failed.",
+    "Chuck Norris was the inspiration for Mount Rushmore — the other four faces were added later.",
+    "Napoleon was actually 6 feet tall. He stood next to Chuck Norris and seemed short.",
+    "Chuck Norris built Rome in a day. He was just being slow.",
+    "The Roman Empire fell when Chuck Norris sneezed.",
+    "Chuck Norris has already been to Mars. That's why there are no signs of life there.",
+    "The pyramids were originally supposed to be much taller. They stopped when Chuck Norris said they were high enough.",
+    "Chuck Norris wrote the Bible. He also edited it. Twice.",
+    "Columbus didn't discover America. Chuck Norris allowed him to find it.",
+  ],
+  "Tecnologia": [
+    "Chuck Norris can write infinite loops and exit them.",
+    "Chuck Norris's keyboard has no escape key — nothing escapes Chuck Norris.",
+    "When Chuck Norris pushes to production, the tests pass out of fear.",
+    "Chuck Norris can make a null pointer point somewhere useful.",
+    "Chuck Norris programs in binary — he only uses the 1s.",
+    "Chuck Norris doesn't have bugs in his code. Bugs have Chuck Norris.",
+    "The first computer virus was created to protect itself from Chuck Norris.",
+    "Chuck Norris can read binary with his eyes closed.",
+    "Chuck Norris's code never crashes. It rage-quits everything around it instead.",
+    "Chuck Norris doesn't push code. He stares at the repository until it merges itself.",
+  ],
+  "Comida": [
+    "Chuck Norris can make onions cry.",
+    "Chuck Norris once ordered a steak in a restaurant. The steak complied.",
+    "Chuck Norris doesn't eat. Food volunteers.",
+    "Chuck Norris puts hot sauce on his hot sauce.",
+    "Chuck Norris once bit into a ghost pepper. The pepper cried.",
+    "The forbidden fruit wasn't forbidden from Chuck Norris.",
+    "Chuck Norris can make a vegetarian eat meat just by looking at them.",
+    "When Chuck Norris drinks water, the water thanks him.",
+    "Chuck Norris microwave's food in 0 seconds.",
+    "Chuck Norris once ate an entire restaurant. The building included.",
+  ],
+};
+
+// ── Setup ─────────────────────────────────────────────────────────────────
+const btnRandom   = document.getElementById('btn-random');
+const btnCategory = document.getElementById('btn-category');
+const selectEl    = document.getElementById('category');
+const jokeEl      = document.getElementById('joke-text');
+const dotsEl      = document.getElementById('dots');
+const countEl     = document.getElementById('count');
+const catBadge    = document.getElementById('cat-badge');
+const catBadgeTxt = document.getElementById('cat-badge-text');
+
+let count = 0;
+const categories = Object.keys(JOKES);
+const usedMap = {}; // track used indexes per category to avoid repeats
+
+// Populate select
+categories.forEach(cat => {
+  const opt = document.createElement('option');
+  opt.value = cat;
+  opt.textContent = cat;
+  selectEl.appendChild(opt);
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+function getRandom(category) {
+  const pool = JOKES[category];
+  if (!usedMap[category]) usedMap[category] = [];
+  // reset when all jokes seen
+  if (usedMap[category].length >= pool.length) usedMap[category] = [];
+  let idx;
+  do { idx = Math.floor(Math.random() * pool.length); }
+  while (usedMap[category].includes(idx));
+  usedMap[category].push(idx);
+  return pool[idx];
+}
+
+function getRandomCategory() {
+  return categories[Math.floor(Math.random() * categories.length)];
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function addRipple(btn, e) {
+  const rect = btn.getBoundingClientRect();
+  const rip  = document.createElement('span');
+  const size = Math.max(rect.width, rect.height);
+  rip.className = 'ripple';
+  rip.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.appendChild(rip);
+  rip.addEventListener('animationend', () => rip.remove());
+}
+
+// ── Show joke ─────────────────────────────────────────────────────────────
+async function showJoke(category) {
+  const joke = getRandom(category);
+
+  // loading dots
+  jokeEl.style.opacity = '0';
+  catBadge.classList.add('hidden');
+  dotsEl.classList.add('visible');
+  await delay(500);
+  dotsEl.classList.remove('visible');
+
+  // update badge
+  catBadgeTxt.textContent = category;
+  catBadge.classList.remove('hidden');
+
+  // show joke
+  jokeEl.textContent = joke;
+  jokeEl.style.opacity = '';
+  jokeEl.classList.remove('fade-in');
+  void jokeEl.offsetWidth; // reflow to restart animation
+  jokeEl.classList.add('fade-in');
+  jokeEl.addEventListener('animationend', () => jokeEl.classList.remove('fade-in'), { once: true });
+
+  // counter
+  count++;
+  countEl.textContent = count;
+  countEl.classList.add('pop');
+  countEl.addEventListener('animationend', () => countEl.classList.remove('pop'), { once: true });
+}
+
+// ── Events ────────────────────────────────────────────────────────────────
+btnRandom.addEventListener('click', e => {
+  addRipple(btnRandom, e);
+  showJoke(getRandomCategory());
+});
+
+btnCategory.addEventListener('click', e => {
+  addRipple(btnCategory, e);
+  showJoke(selectEl.value);
+});
+
+document.addEventListener('keydown', e => {
+  if (e.target !== document.body) return;
+  if (e.code === 'Space' || e.code === 'Enter') {
+    e.preventDefault();
+    btnRandom.click();
+  }
+});
+</script>
+</body>
+</html>

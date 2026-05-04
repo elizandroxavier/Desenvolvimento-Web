@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto Profissional</title>
+
+  <!-- Tipografia moderna -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="container">
+    <section class="contact-card">
+      <header class="header">
+        <h1>Contacto</h1>
+        <p>
+          Tem uma questão ou proposta? Envie-nos uma mensagem.
+          Responderemos com brevidade.
+        </p>
+      </header>
+
+      <form id="contactForm" novalidate>
+        <div class="field">
+          <label for="name">Nome completo</label>
+          <input type="text" id="name" name="name" placeholder="O seu nome" />
+          <small class="error"></small>
+        </div>
+
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="exemplo@dominio.com" />
+          <small class="error"></small>
+        </div>
+
+        <div class="field">
+          <label for="subject">Assunto</label>
+          <input type="text" id="subject" name="subject" placeholder="Opcional" />
+        </div>
+
+        <div class="field">
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" rows="5" placeholder="Descreva a sua mensagem"></textarea>
+          <small class="error"></small>
+        </div>
+
+        <button type="submit" id="submitBtn">
+          <span class="btn-text">Enviar mensagem</span>
+          <span class="loader"></span>
+        </button>
+
+        <p class="form-status" id="formStatus"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

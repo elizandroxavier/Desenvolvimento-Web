@@ -1,0 +1,63 @@
+Formulação de prompts para geração do frontend e da interface com cards
+de notícias
+
+Solicitar à IA que gere as páginas HTML para registo, login e uma página
+principal protegida, crie um layout responsivo onde cada notícia seja apresentada
+num card contendo imagem ilustrativa, título, descrição resumida, nome da
+fonte e data de publicação. Solicitar código CSS para grelha de cards que se
+adapte a diferentes tamanhos de ecrã.
+
+Implemente um sistema de navegação por categorias (ex:
+tecnologia, desporto, saúde, ciência, negócios, entretenimento). Pedir que as
+categorias sejam apresentadas como menu ou botões de filtro, e que ao
+selecionar uma categoria, a aplicação solicite à API apenas notícias dessa
+categoria.
+
+Implemente uma página ou secção onde o utilizador possa
+selecionar as suas categorias de interesse. Após definidas, a página inicial
+deve mostrar primeiro as notícias das categorias preferidas pelo utilizador.
+Adicionalmente, implementar a funcionalidade de guardar artigos como
+favoritos para leitura posterior
+
+Guardar categorias preferidas
+ Marcar artigos como favoritos
+ Visualizar lista de artigos favoritos
+
+A aplicação deve permitir ao utilizador:
+ Visualizar notícias atuais organizadas em cards
+ Filtrar notícias por categoria
+ Ver detalhes de cada notícia: título, descrição, fonte, data, imagem e
+link para o artigo original
+ Navegar por páginas ou carregar mais notícias (pagination ou infinite
+scroll)
+
+A aplicação deve:
+ Apresentar na página inicial as notícias das categorias preferidas do
+utilizador com destaque
+ Permitir ao utilizador ver também notícias de outras categorias
+ Lembrar as preferências entre sessões
+
+A interface deve ser limpa, moderna e intuitiva, seguindo o padrão de cards
+típico de agregadores de notícias
+ A aplicação deve ser responsiva, funcionando em computadores, tablets e
+telemóveis
+
+Pasta frontend: Contém os ficheiros de apresentação. Inclui as páginas HTML
+para login, registo, dashboard principal e página de favoritos, um ficheiro CSS
+para estilos e responsividade, e um ficheiro JavaScript para interações
+dinâmicas com o backend.
+
+O utilizador acede à aplicação através do navegador
+ Se não tiver conta, regista-se com nome, correio eletrónico e palavra-passe
+ Após registo ou login, acede à página principal
+ Visualiza as notícias organizadas em cards, com destaque para as suas
+categorias preferidas
+ Pode filtrar notícias por categoria usando o menu disponível
+ Ao ver uma notícia interessante, pode guardá-la nos favoritos
+ Pode aceder à página de favoritos para ler mais tarde os artigos guardados
+ Pode modificar as suas categorias preferidas na página de definições
+ Quando termina, pode fazer logout
+
+Aqui só será feito o frontend as funcionalidades que estão aqui somente frontend e o resto que tem haver com backend ou base de dados ignore, praticamente quero que faças o frontend de um sistema que terá backend.
+
+Mas vais gerar primeiramente um prompt para que eu possa enviar num outro chat aqui mesmo.

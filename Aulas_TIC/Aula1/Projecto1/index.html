@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contacto connosco através do nosso formulário profissional">
+    <title>Contacto Profissional</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <!-- Cabeçalho do formulário -->
+            <header class="form-header">
+                <h1 class="form-title">Entre em Contacto</h1>
+                <p class="form-subtitle">A nossa equipa responderá no prazo máximo de 24 horas úteis.</p>
+            </header>
+
+            <!-- Formulário principal -->
+            <form id="contactForm" class="contact-form" novalidate>
+                
+                <!-- Campo: Nome Completo -->
+                <div class="form-group">
+                    <label for="fullName" class="form-label">
+                        Nome completo
+                        <span class="required-indicator" aria-label="campo obrigatório">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="fullName" 
+                        name="fullName" 
+                        class="form-input"
+                        placeholder="João Silva"
+                        aria-required="true"
+                        aria-describedby="fullName-error"
+                        autocomplete="name"
+                    >
+                    <span id="fullName-error" class="error-message" role="alert"></span>
+                </div>
+
+                <!-- Campo: E-mail -->
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        E-mail
+                        <span class="required-indicator" aria-label="campo obrigatório">*</span>
+                    </label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input"
+                        placeholder="joao.silva@exemplo.pt"
+                        aria-required="true"
+                        aria-describedby="email-error"
+                        autocomplete="email"
+                    >
+                    <span id="email-error" class="error-message" role="alert"></span>
+                </div>
+
+                <!-- Campo: Assunto -->
+                <div class="form-group">
+                    <label for="subject" class="form-label">
+                        Assunto
+                        <span class="required-indicator" aria-label="campo obrigatório">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        id="subject" 
+                        name="subject" 
+                        class="form-input"
+                        placeholder="Solicitar informações sobre serviços"
+                        aria-required="true"
+                        aria-describedby="subject-error"
+                    >
+                    <span id="subject-error" class="error-message" role="alert"></span>
+                </div>
+
+                <!-- Campo: Mensagem -->
+                <div class="form-group">
+                    <label for="message" class="form-label">
+                        Mensagem
+                        <span class="required-indicator" aria-label="campo obrigatório">*</span>
+                    </label>
+                    <textarea 
+                        id="message" 
+                        name="message" 
+                        class="form-input form-textarea"
+                        placeholder="Descreva a sua questão ou solicitação de forma clara e objetiva..."
+                        rows="6"
+                        aria-required="true"
+                        aria-describedby="message-error"
+                    ></textarea>
+                    <span id="message-error" class="error-message" role="alert"></span>
+                </div>
+
+                <!-- Botão de envio -->
+                <button type="submit" class="submit-button" id="submitButton">
+                    <span class="button-text">Enviar mensagem</span>
+                    <span class="button-loader" aria-hidden="true"></span>
+                </button>
+
+            </form>
+
+            <!-- Mensagem de sucesso -->
+            <div id="successMessage" class="success-message" role="status" aria-live="polite">
+                <svg class="success-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h2 class="success-title">Mensagem enviada com sucesso</h2>
+                <p class="success-text">Obrigado pelo seu contacto. A nossa equipa analisará a sua mensagem e responderá brevemente.</p>
+                <button type="button" class="back-button" id="backButton">Enviar nova mensagem</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
